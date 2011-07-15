@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+Book.create(:name=>'Atlas Sat Up', :price=>42.00)
+Membership.create(:name=>"Da Club", :price=>3.50)
