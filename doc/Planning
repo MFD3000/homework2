@@ -1,0 +1,73 @@
+Processing Payments Plan
+
+Create Product Migration
+  t.integer :id
+  t.string :name
+  t.decimal :price
+  t.boolean :is_physical
+  t.string :type
+
+Edit Product Model with validation checks.
+
+By adding the type string, rails will treat any model that inherits Product 
+with single table inheritence.
+
+Create Book Model- inherit from Product
+	default is_physical to true
+	def ProcessPayment 
+		sends royalty packing slip
+	end
+
+Create Membership Model - inherits from Product
+	default is_physical for Memberships to false
+	def ProcessPayment  
+		sends email to owner to inform
+	end
+	
+Create Payment Migration
+	t.resource_id:integer
+	t.resource_type:string
+
+Edit Payment Model	
+	belongs_to:resource, :polymorphic => true
+	def ProcessPayment
+		super
+		if self.is_physical
+			send shipping packing slip
+		end
+	
+Edit Product Model
+	has_many:payments, :as =>resource, dependant=>:destroy
+	
+	
+This sets up multiple table inheritence so that Payments and Products can exist in separate tables but still allow Payments to inherit from Products.
+
+Payment View
+
+Form listing all products with payment button beside listing.
+
+Payment Controller
+Upon receiving form post with payment, run ProcessPayment method.
+
+Call it a day.
+	
+
+Unhandled Plans:
+Normally I would create cucumber stories for various payment scenerios:
+Given payment received
+When Payment is Book
+Then Send shipping packing slip
+And royalty packing slip
+
+Rspec could be used to test the integrity of the Packing model.
+
+Tests would be written first, and methods written to create a green.
+
+
+Time and other constraints did not allow for a proper BDD environment for this exercise.
+
+
+
+
+
+
